@@ -43,6 +43,7 @@ class Instabot:
     
     def unfollow(self):
         unfollows = 0
+        max_unfollows = 150
         while True:
             try:
                 self.driver.get("https://www.instagram.com/YOUR_INSTAGRAM_HANDLE/")
@@ -61,14 +62,16 @@ class Instabot:
                     self.driver.find_element_by_xpath("//button[contains(text(), 'Following')]").click()
                     sleep(3)
                     self.driver.find_element_by_xpath("//button[contains(text(), 'Unfollow')]").click()
-                    sleep(10)
                     unfollows +=1
                     print(f"You unfollowed {unfollows} accounts so far. Good job!")
-                    if unfollows >= 5:
-                        exit()
-                        quit()
+                    sleep(10)
+                    
+                    if unfollows >= max_unfollows:
+                        sys.exit(f"It seems that you unfollowed a total of {unfollows} accounts, so it's time to quit or you may get banned. See you soon!")
             except:
                 pass
+            if unfollows >= max_unfollows:
+                sys.exit(f"It seems that you unfollowed a total of {unfollows} accounts, so it's time to quit or you may get banned. See you soon!")
             sleep(120)
 
 
